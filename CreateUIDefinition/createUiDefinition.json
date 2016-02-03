@@ -1,0 +1,57 @@
+{
+  "handler": "Microsoft.Compute.MultiVm",
+  "version": "0.0.1-preview",
+  "parameters": {
+    "basics": [
+    { 
+      "name": "Basics", 
+      "type": "Microsoft.Common.Section", 
+      "label": "Environment configuration", 
+      "elements": [
+          {
+            "name": "adminUsername",
+            "type": "Microsoft.Compute.UserNameTextBox",
+            "label": "Cluster admin username",
+            "toolTip": "This is the username for the virtual machines and Ambari administrator.",
+            "osPlatform": "Linux",
+            "constraints":
+            {
+              "required": true
+            }     
+          },
+          {
+            "name": "credentials",
+            "type": "Microsoft.Compute.CredentialsCombo",
+            "label": {
+              "authenticationType": "Authentication type",
+              "password": "Password",
+              "confirmPassword": "Confirm Password",
+              "sshPublicKey": "SSH public key"
+            },
+            "tooltip" : {
+              "authenticationType": "Authentication type",
+              "password": "Password",
+              "sshPublicKey": "SSH public key"
+            },
+            "constraints": {
+              "required": true
+            },
+            "options": {
+              "hideConfirmation": false
+            },
+            "osPlatform": "Linux"
+          }               
+      ]
+    }       
+    ],
+    "steps": [
+    ],
+    "outputs": {
+      "location"        : "[location()]",
+      "adminUsername"   : "[steps('ClusterConfig').adminUsername]",
+      "adminPassword"   : "[steps('ClusterConfig').credentials.password]",
+      "sshKey"          : "[steps('ClusterConfig').credentials.sshKey]",
+      "authenticationType": "[steps('ClusterConfig').credentials.authenticationType]"
+    }
+  }
+}
