@@ -1,0 +1,23 @@
+{
+    "location":{
+        "value": "West US"
+    },
+    "vmSize" : {
+        "value": "Standard_A4"
+    },
+    "numberOfDataDisks": {
+        "value": 10
+    },
+    "vmName" : {
+        "value": "myvm"
+    },    
+    "adminUserName": {
+        "value": "azureuser"
+    },
+    "adminPassword": {
+        "value": "SuperP@ssw0rd"
+    },
+    "scriptUri": {
+        "value": "https://raw.github.com/rafaelgodinho/ARMSamples/DynamicaNumberOfDataDisks"
+    }
+}
