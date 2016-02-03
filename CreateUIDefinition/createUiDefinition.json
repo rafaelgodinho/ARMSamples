@@ -48,10 +48,10 @@
     ],
     "outputs": {
       "location"        : "[location()]",
-      "adminUsername"   : "[steps('ClusterConfig').adminUsername]",
-      "adminPassword"   : "[steps('ClusterConfig').credentials.password]",
-      "sshKey"          : "[steps('ClusterConfig').credentials.sshKey]",
-      "authenticationType": "[steps('ClusterConfig').credentials.authenticationType]"
+      "adminUsername"   : "[basics('Basics').adminUsername]",
+      "adminPassword"   : "[basics('Basics').credentials.password]",
+      "sshKey"          : "[basics('Basics').credentials.sshKey]",
+      "authenticationType": "[basics('Basics').credentials.authenticationType]"
     }
   }
 }
