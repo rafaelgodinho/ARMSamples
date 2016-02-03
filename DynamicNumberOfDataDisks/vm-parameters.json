@@ -18,6 +18,6 @@
         "value": "SuperP@ssw0rd"
     },
     "scriptUri": {
-        "value": "https://raw.github.com/rafaelgodinho/ARMSamples/DynamicaNumberOfDataDisks"
+        "value": "https://raw.githubusercontent.com/rafaelgodinho/ARMSamples/master/DynamicNumberOfDataDisks"
     }
 }
