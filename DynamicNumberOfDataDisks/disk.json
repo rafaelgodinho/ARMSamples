@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json# ",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "clusterName": {
-            "type": "string"
-        },        
         "vmName": {
             "type": "string"
         },
@@ -17,16 +14,16 @@
     },
     "variables": {
         "sizeOfEachDataDiskInGB": 1023,
-        "dd1": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/', parameters('clusterName'), '/', parameters('clusterName'), '-', parameters('vmName'), '-dd1.vhd')]",
-        "dd2": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/', parameters('clusterName'), '/', parameters('clusterName'), '-', parameters('vmName'), '-dd2.vhd')]",
-        "dd3": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/', parameters('clusterName'), '/', parameters('clusterName'), '-', parameters('vmName'), '-dd3.vhd')]",
-        "dd4": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/', parameters('clusterName'), '/', parameters('clusterName'), '-', parameters('vmName'), '-dd4.vhd')]",
-        "dd5": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/', parameters('clusterName'), '/', parameters('clusterName'), '-', parameters('vmName'), '-dd5.vhd')]",
-        "dd6": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/', parameters('clusterName'), '/', parameters('clusterName'), '-', parameters('vmName'), '-dd6.vhd')]",
-        "dd7": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/', parameters('clusterName'), '/', parameters('clusterName'), '-', parameters('vmName'), '-dd7.vhd')]",
-        "dd8": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/', parameters('clusterName'), '/', parameters('clusterName'), '-', parameters('vmName'), '-dd8.vhd')]",
-        "dd9": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/', parameters('clusterName'), '/', parameters('clusterName'), '-', parameters('vmName'), '-dd9.vhd')]",
-        "dd10": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/', parameters('clusterName'), '/', parameters('clusterName'), '-', parameters('vmName'), '-dd10.vhd')]",
+        "dd1": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd1.vhd')]",
+        "dd2": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd2.vhd')]",
+        "dd3": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd3.vhd')]",
+        "dd4": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd4.vhd')]",
+        "dd5": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd5.vhd')]",
+        "dd6": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd6.vhd')]",
+        "dd7": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd7.vhd')]",
+        "dd8": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd8.vhd')]",
+        "dd9": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd9.vhd')]",
+        "dd10": "[concat('http://', parameters('dataDiskStorageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd10.vhd')]",
         "dataDisk0": [],
         "dataDisk1": [
             {
