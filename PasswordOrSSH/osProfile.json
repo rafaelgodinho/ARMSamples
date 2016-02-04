@@ -1,0 +1,55 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json# ",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmName" : {
+          "type" : "string"
+        },
+        "adminUsername": {
+          "type" : "securestring"
+        },
+        "adminPassword": {
+            "type": "securestring"
+        },
+		"sshKey": {
+            "type": "securestring"
+        },
+        "authenticationType": {
+            "type": "string",
+            "defaultValue" : "password",
+            "allowedValues": [
+                "password", 
+                "sshPublicKey"
+            ]
+        }        
+    },
+    "variables": {
+        "password_osProfile": {
+          "computername": "[parameters('vmName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "sshPublicKey_osProfile": {
+          "computername": "[parameters('vmName')]",
+            "adminUsername": "[parameters('adminUsername')]",
+            "linuxConfiguration": {
+                "disablePasswordAuthentication": "true",
+                "ssh": {
+                    "publicKeys": [
+                        {
+                        "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+                        "keyData": "[parameters('sshKey')]"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "resources": [],
+    "outputs" : {
+        "osProfile": {
+            "value": "[variables(concat(parameters('authenticationType'), '_osProfile'))]",
+            "type": "object"
+        }
+    }
+}
