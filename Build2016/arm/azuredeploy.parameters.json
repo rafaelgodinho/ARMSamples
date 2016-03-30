@@ -1,0 +1,36 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "newStorageAccountName": {
+      "value": "rgmongodb"
+    },
+    "adminUsername": {
+      "value": "azureuser"
+    },
+    "adminPassword": {
+      "value": "SuperP@ssw0rd"
+    },
+    "dnsNameForPublicIP": {
+      "value": "rgmongodb"
+    },
+    "location": {
+      "value": "West US"
+    },
+    "virtualNetworkName": {
+      "value": "myVNET"
+    },
+    "vmSize": {
+      "value": "Standard_D4_v2"
+    },
+    "vmName": {
+      "value": "myVM"
+    },
+    "publicIPAddressName": {
+      "value": "myPublicIP"
+    },
+    "nicName": {
+      "value": "myNic"
+    }
+  }
+}
