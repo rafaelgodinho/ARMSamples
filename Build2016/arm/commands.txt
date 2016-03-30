@@ -1,3 +1,5 @@
+#based on https://github.com/Azure/azure-quickstart-templates/tree/master/mongodb-on-ubuntu
+
 azure group create rgmongodb westus
 azure group deployment create --template-file azuredeploy.json --parameters-file azuredeploy.parameters.json rgmongodb
 azure group delete rgmongodb
