@@ -2,4 +2,5 @@
 
 azure group create rgmongodb westus
 azure group deployment create --template-file azuredeploy.json --parameters-file azuredeploy.parameters.json rgmongodb
+
 azure group delete rgmongodb
