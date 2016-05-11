@@ -19,6 +19,9 @@
         "storageAccountName": {
             "type": "string"
         },
+        "numberOfDataDisks": {
+            "type": "int"
+        },
         "location": {
             "type": "string"
         }        

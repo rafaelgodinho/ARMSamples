@@ -57,8 +57,7 @@
         "maxDisksPremium_LRS": 35,
         "maxDisksPerStorageAccount": "[variables(concat('maxDisks', variables('storageAccountType')))]",
         "numberOfNodesPerStorageAccount": "[div(variables('maxDisksPerStorageAccount'), variables('numberOfDisksPerNode'))]",
-        "numberOfNodes" : "[parameters('nodeCount')]",
-        "module" : "[mod(variables('numberOfNodes'), variables('numberOfNodesPerStorageAccount'))]",
+        "module" : "[mod(parameters('vmCount'), variables('numberOfNodesPerStorageAccount'))]",
         "moduleReplacing9" : "[replace(string(variables('module')), '9', '1')]",
         "moduleReplacing8" : "[replace(string(variables('moduleReplacing9')), '8', '1')]",
         "moduleReplacing7" : "[replace(string(variables('moduleReplacing8')), '7', '1')]",
@@ -67,7 +66,7 @@
         "moduleReplacing4" : "[replace(string(variables('moduleReplacing5')), '4', '1')]",
         "moduleReplacing3" : "[replace(string(variables('moduleReplacing4')), '3', '1')]",                
         "moduleReplacing2" : "[replace(string(variables('moduleReplacing3')), '2', '1')]",
-        "numberOfStorageAccounts" : "[add(div(variables('numberOfNodes'), variables('numberOfNodesPerStorageAccount')), int(variables('moduleReplacing2')))]"
+        "numberOfStorageAccounts" : "[add(div(parameters('vmCount'), variables('numberOfNodesPerStorageAccount')), int(variables('moduleReplacing2')))]"
     },
     "resources": [
       {
@@ -77,7 +76,7 @@
         "properties": {
           "mode": "Incremental",
           "templateLink": {
-            "uri": "[concat(variables('scriptUri'), '/network.json')]",
+            "uri": "[concat(parameters('scriptUri'), '/network.json')]",
             "contentVersion": "1.0.0.0"
           },
           "parameters": {
@@ -85,7 +84,7 @@
               "value": "[parameters('vmBasename')]"
             },
             "vmCount": {
-              "value": "[variables('vmCount')]"
+              "value": "[parameters('vmCount')]"
             },
             "location": {
               "value": "[parameters('location')]"
@@ -100,7 +99,7 @@
         "properties": {
           "mode": "Incremental",
           "templateLink": {
-            "uri": "[concat(variables('scriptUri'), '/storage.json')]",
+            "uri": "[concat(parameters('scriptUri'), '/storage.json')]",
             "contentVersion": "1.0.0.0"
           },
           "parameters": {
@@ -120,13 +119,17 @@
         }
       },
       {
-        "name": "[concat(parameters('vmBasename'), 'storage', copyIndex())]",
+        "name": "[concat(parameters('vmBasename'), 'vm', copyIndex())]",
         "type": "Microsoft.Resources/deployments",
         "apiVersion": "2015-01-01",
+        "dependsOn": [
+            "[concat('Microsoft.Resources/deployments/', parameters('vmBasename'), 'network')]",
+            "[concat('Microsoft.Resources/deployments/', parameters('vmBasename'), 'storage')]"
+        ],        
         "properties": {
           "mode": "Incremental",
           "templateLink": {
-            "uri": "[concat(variables('scriptUri'), '/vm.json')]",
+            "uri": "[concat(parameters('scriptUri'), '/vm.json')]",
             "contentVersion": "1.0.0.0"
           },
           "parameters": {
@@ -148,12 +151,12 @@
             "location": {
                 "value": "[parameters('location')]"
             }        
-          },
-          "copy": {
-              "name": "vmLoop",
-              "count": "[parameters('vmCount')]"
-          }          
-        }
+          }
+        },
+        "copy": {
+          "name": "vmLoop",
+          "count": "[parameters('vmCount')]"
+        }          
       }      
     ],
     "outputs" : {}
