@@ -79,7 +79,7 @@
         "location": "[parameters('location')]",
         "dependsOn": [
             "[concat('Microsoft.Network/virtualNetworks/', parameters('vmBasename'), '-vnet')]",
-            "[concat('Microsoft.Network/networkSecurityGroups/', parameters('vBasename'), '-nsg')]",
+            "[concat('Microsoft.Network/networkSecurityGroups/', parameters('vmBasename'), '-nsg')]",
             "[concat('Microsoft.Network/publicIPAddresses/', parameters('vmBasename'), '-pip', copyIndex())]"
         ],
         "properties": {
