@@ -134,7 +134,7 @@
           },
           "parameters": {
             "vmSize" : {
-                "value": "string"
+                "value": "[parameters('vmSize')]"
             },
             "vmName": {
                 "value": "[concat(parameters('vmBasename'), copyIndex())]"
