@@ -3,10 +3,7 @@
         "value": "West US"
     },
     "vmSize" : {
-        "value": "Standard_A4"
-    },
-    "numberOfDataDisks": {
-        "value": 10
+        "value": "Standard_DS3_v2"
     },
     "vmBasename" : {
         "value": "myvm"
@@ -18,7 +15,7 @@
         "value": "SuperP@ssw0rd"
     },
     "vmCount": {
-        "value": 10
+        "value": 5
     },
     "scriptUri": {
         "value": "https://raw.githubusercontent.com/rafaelgodinho/ARMSamples/master/DynamicNumberOfDataDisks"
