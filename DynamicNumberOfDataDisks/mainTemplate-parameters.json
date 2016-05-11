@@ -8,7 +8,7 @@
     "numberOfDataDisks": {
         "value": 10
     },
-    "vmName" : {
+    "vmBasename" : {
         "value": "myvm"
     },    
     "adminUserName": {
@@ -16,6 +16,9 @@
     },
     "adminPassword": {
         "value": "SuperP@ssw0rd"
+    },
+    "vmCount": {
+        "value": 10
     },
     "scriptUri": {
         "value": "https://raw.githubusercontent.com/rafaelgodinho/ARMSamples/master/DynamicNumberOfDataDisks"

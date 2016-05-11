@@ -16,185 +16,586 @@
             "type": "securestring",
             "defaultValue": ""
         },
-        "numberOfDataDisks":{
-            "type": "int",
-            "defaultValue": 0
+        "storageAccountName": {
+            "type": "string"
         },
         "location": {
             "type": "string"
-        },
-        "scriptUri": {
-            "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/rafaelgodinho/ARMSamples/master/DynamicNumberOfDataDisks"
-        }
+        }        
     },
     "variables": {
         "imagePublisher" : "Canonical",
         "imageOffer" : "UbuntuServer",
         "imageSKU" : "15.10",
         "imageVersion": "latest",
-        "storageAccountName": "[uniquestring(resourceGroup().id, deployment().name)]"
+        "sizeOfEachDataDiskInGB": 1023,
+        "dd1": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd1.vhd')]",
+        "dd2": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd2.vhd')]",
+        "dd3": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd3.vhd')]",
+        "dd4": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd4.vhd')]",
+        "dd5": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd5.vhd')]",
+        "dd6": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd6.vhd')]",
+        "dd7": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd7.vhd')]",
+        "dd8": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd8.vhd')]",
+        "dd9": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd9.vhd')]",
+        "dd10": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-dd10.vhd')]",
+        "dataDisk0": [],
+        "dataDisk1": [
+            {
+                "name": "dd1",
+                "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+                "lun": 0,
+                "vhd": {
+                "Uri": "[variables('dd1')]"
+                },
+                "createOption": "Empty"
+            }
+        ],
+        "dataDisk2": [
+            {
+              "name": "dd1",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 0,
+              "vhd": {
+                "Uri": "[variables('dd1')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd2",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 1,
+              "vhd": {
+                "Uri": "[variables('dd2')]"
+              },
+              "createOption": "Empty"
+            }              
+        ],
+        "dataDisk3": [
+            {
+              "name": "dd1",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 0,
+              "vhd": {
+                "Uri": "[variables('dd1')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd2",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 1,
+              "vhd": {
+                "Uri": "[variables('dd2')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd3",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 2,
+              "vhd": {
+                "Uri": "[variables('dd3')]"
+              },
+              "createOption": "Empty"
+            }            
+        ],
+        "dataDisk4": [
+            {
+              "name": "dd1",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 0,
+              "vhd": {
+                "Uri": "[variables('dd1')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd2",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 1,
+              "vhd": {
+                "Uri": "[variables('dd2')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd3",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 2,
+              "vhd": {
+                "Uri": "[variables('dd3')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd4",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 3,
+              "vhd": {
+                "Uri": "[variables('dd4')]"
+              },
+              "createOption": "Empty"
+            }            
+        ],
+        "dataDisk5": [
+            {
+              "name": "dd1",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 0,
+              "vhd": {
+                "Uri": "[variables('dd1')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd2",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 1,
+              "vhd": {
+                "Uri": "[variables('dd2')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd3",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 2,
+              "vhd": {
+                "Uri": "[variables('dd3')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd4",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 3,
+              "vhd": {
+                "Uri": "[variables('dd4')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd5",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 4,
+              "vhd": {
+                "Uri": "[variables('dd5')]"
+              },
+              "createOption": "Empty"
+            }                                    
+        ],
+        "dataDisk6": [
+            {
+              "name": "dd1",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 0,
+              "vhd": {
+                "Uri": "[variables('dd1')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd2",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 1,
+              "vhd": {
+                "Uri": "[variables('dd2')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd3",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 2,
+              "vhd": {
+                "Uri": "[variables('dd3')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd4",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 3,
+              "vhd": {
+                "Uri": "[variables('dd4')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd5",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 4,
+              "vhd": {
+                "Uri": "[variables('dd5')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd6",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 5,
+              "vhd": {
+                "Uri": "[variables('dd6')]"
+              },
+              "createOption": "Empty"
+            }            
+        ],
+        "dataDisk7": [
+            {
+              "name": "dd1",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 0,
+              "vhd": {
+                "Uri": "[variables('dd1')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd2",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 1,
+              "vhd": {
+                "Uri": "[variables('dd2')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd3",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 2,
+              "vhd": {
+                "Uri": "[variables('dd3')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd4",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 3,
+              "vhd": {
+                "Uri": "[variables('dd4')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd5",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 4,
+              "vhd": {
+                "Uri": "[variables('dd5')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd6",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 5,
+              "vhd": {
+                "Uri": "[variables('dd6')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd7",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 6,
+              "vhd": {
+                "Uri": "[variables('dd7')]"
+              },
+              "createOption": "Empty"
+            }            
+        ],
+        "dataDisk8": [
+            {
+              "name": "dd1",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 0,
+              "vhd": {
+                "Uri": "[variables('dd1')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd2",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 1,
+              "vhd": {
+                "Uri": "[variables('dd2')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd3",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 2,
+              "vhd": {
+                "Uri": "[variables('dd3')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd4",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 3,
+              "vhd": {
+                "Uri": "[variables('dd4')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd5",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 4,
+              "vhd": {
+                "Uri": "[variables('dd5')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd6",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 5,
+              "vhd": {
+                "Uri": "[variables('dd6')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd7",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 6,
+              "vhd": {
+                "Uri": "[variables('dd7')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd8",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 7,
+              "vhd": {
+                "Uri": "[variables('dd8')]"
+              },
+              "createOption": "Empty"
+            }            
+        ],
+        "dataDisk9": [
+            {
+              "name": "dd1",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 0,
+              "vhd": {
+                "Uri": "[variables('dd1')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd2",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 1,
+              "vhd": {
+                "Uri": "[variables('dd2')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd3",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 2,
+              "vhd": {
+                "Uri": "[variables('dd3')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd4",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 3,
+              "vhd": {
+                "Uri": "[variables('dd4')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd5",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 4,
+              "vhd": {
+                "Uri": "[variables('dd5')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd6",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 5,
+              "vhd": {
+                "Uri": "[variables('dd6')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd7",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 6,
+              "vhd": {
+                "Uri": "[variables('dd7')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd8",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 7,
+              "vhd": {
+                "Uri": "[variables('dd8')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd9",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 8,
+              "vhd": {
+                "Uri": "[variables('dd9')]"
+              },
+              "createOption": "Empty"
+            }            
+        ],        
+        "dataDisk10": [
+            {
+              "name": "dd1",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 0,
+              "vhd": {
+                "Uri": "[variables('dd1')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd2",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 1,
+              "vhd": {
+                "Uri": "[variables('dd2')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd3",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 2,
+              "vhd": {
+                "Uri": "[variables('dd3')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd4",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 3,
+              "vhd": {
+                "Uri": "[variables('dd4')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd5",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 4,
+              "vhd": {
+                "Uri": "[variables('dd5')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd6",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 5,
+              "vhd": {
+                "Uri": "[variables('dd6')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd7",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 6,
+              "vhd": {
+                "Uri": "[variables('dd7')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd8",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 7,
+              "vhd": {
+                "Uri": "[variables('dd8')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd9",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 8,
+              "vhd": {
+                "Uri": "[variables('dd9')]"
+              },
+              "createOption": "Empty"
+            },
+            {
+              "name": "dd10",
+              "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
+              "lun": 9,
+              "vhd": {
+                "Uri": "[variables('dd10')]"
+              },
+              "createOption": "Empty"
+            }            
+        ]        
     },
     "resources": [
-{
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat(parameters('vmName'), '-pip')]",
-      "location": "[parameters('location')]",
-      "properties": {
-          "publicIPAllocationMethod": "Dynamic"
-      }
-    },
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/virtualNetworks",
-      "name": "[concat(parameters('vmName'), '-vnet')]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "addressSpace": {
-          "addressPrefixes": [
-            "10.0.0.0/16"
-          ]
-        },
-        "subnets": [
-          {
-            "name": "Subnet-1",
-            "properties" : {
-                "addressPrefix": "10.0.0.0/24"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Network/networkSecurityGroups",
-      "name": "[concat(parameters('vmName'), '-nsg')]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "securityRules": [
-          {
-            "name": "ssh_rule",
+        {
+            "apiVersion": "2015-06-15",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('vmName')]",
+            "location": "[parameters('location')]",
             "properties": {
-                "description": "Allow SSH",
-                "protocol": "Tcp",
-                "sourcePortRange": "*",
-                "destinationPortRange": "22",
-                "sourceAddressPrefix": "Internet",
-                "destinationAddressPrefix": "*",
-                "access": "Allow",
-                "priority": 100,
-                "direction": "Inbound"
-            }
-          }
-        ]
-      }
-    },    
-    {
-        "apiVersion": "2015-06-15",
-        "type": "Microsoft.Network/networkInterfaces",
-        "name": "[concat(parameters('vmName'), '-nic')]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-            "[concat('Microsoft.Network/virtualNetworks/', parameters('vmName'), '-vnet')]",
-            "[concat('Microsoft.Network/networkSecurityGroups/', parameters('vmName'), '-nsg')]",
-            "[concat('Microsoft.Network/publicIPAddresses/', parameters('vmName'), '-pip')]"
-        ],
-        "properties": {
-            "networkSecurityGroup": {  
-                "id": "[concat(resourceId('Microsoft.Network/networkSecurityGroups', concat(parameters('vmName'), '-nsg')))]"
-            },            
-            "ipConfigurations": [
-            {
-                "name": "ipconfig1",
-                "properties": {
-                    "privateIPAllocationMethod": "Dynamic",
-                    "subnet": {
-                        "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', concat(parameters('vmName'), '-vnet')), '/subnets/Subnet-1')]"
+                "hardwareProfile": {
+                    "vmSize": "[parameters('vmSize')]"
+                },
+                "osProfile": {
+                    "computerName": "[parameters('vmName')]",
+                    "adminUsername": "[parameters('adminUsername')]",
+                    "adminPassword": "[parameters('adminPassword')]"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "[variables('imagePublisher')]",
+                        "offer": "[variables('imageOffer')]",
+                        "sku": "[variables('imageSku')]",
+                        "version": "[variables('imageVersion')]"
                     },
-                    "publicIPAddress": {
-                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('vmName'), '-pip'))]"
-                    }                    
-                }
-            }
-          ]
-        }
-    },
-    {
-        "type": "Microsoft.Storage/storageAccounts",
-        "name": "[concat(variables('storageAccountName'))]",
-        "apiVersion": "2015-06-15",
-        "location": "[parameters('location')]",
-        "properties": {
-            "accountType": "Standard_LRS"
-        }
-    },
-    {
-        "name": "[concat('dataDisks-', parameters('vmName'))]",
-        "type": "Microsoft.Resources/deployments",
-        "apiVersion": "2015-01-01",
-        "properties": {
-            "mode": "Incremental",
-            "templateLink": {
-                "uri": "[concat(parameters('scriptUri'), '/disk.json')]",
-                "contentVersion": "1.0.0.0"
-            },
-            "parameters": {
-                "vmName" : {
-                    "value": "[parameters('vmName')]"
+                "osDisk" : {
+                    "name": "osDisk",
+                    "createOption": "FromImage",
+                    "vhd": {
+                    "uri": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-osdisk.vhd')]"
+                    },
+                    "caching": "ReadWrite"
                 },
-                "dataDiskStorageAccountName" : {
-                    "value": "[variables('storageAccountName')]"
+                "dataDisks": "[variables(concat('dataDisk', parameters('numberOfDataDisks')))]"
                 },
-                "numberOfDataDisks" : {
-                    "value": "[parameters('numberOfDataDisks')]"
+                "networkProfile": {
+                    "networkInterfaces" : [
+                    {
+                        "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vmName'), '-nic'))]"
+                    }
+                    ]
                 }
             }
         }
-    },
-    {
-        "apiVersion": "2015-06-15",
-        "type": "Microsoft.Compute/virtualMachines",
-        "name": "[parameters('vmName')]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-            "[concat('Microsoft.Resources/deployments/dataDisks-', parameters('vmName'))]",
-            "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
-        ],                
-        "properties": {
-            "hardwareProfile": {
-                "vmSize": "[parameters('vmSize')]"
-            },
-            "osProfile": {
-                "computerName": "[parameters('vmName')]",
-                "adminUsername": "[parameters('adminUsername')]",
-                "adminPassword": "[parameters('adminPassword')]"
-            },
-            "storageProfile": {
-                "imageReference": {
-                    "publisher": "[variables('imagePublisher')]",
-                    "offer": "[variables('imageOffer')]",
-                    "sku": "[variables('imageSku')]",
-                    "version": "[variables('imageVersion')]"
-                },
-              "osDisk" : {
-                "name": "osDisk",
-                "createOption": "FromImage",
-                "vhd": {
-                   "uri": "[concat('http://', variables('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-osdisk.vhd')]"
-                },
-                "caching": "ReadWrite"
-              },
-              "dataDisks": "[reference(concat('Microsoft.Resources/deployments/dataDisks-', parameters('vmName')), '2015-01-01').outputs.dataDisk.value]"
-            },
-            "networkProfile": {
-                "networkInterfaces" : [
-                {
-                    "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('vmName'), '-nic'))]"
-                }
-                ]
-            }
-        }
-    }
     ]
 }

@@ -1,0 +1,160 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json# ",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmBasename": {
+            "type": "string"
+        },
+        "numberOfDataDisks":{
+            "type": "int"
+        },
+        "vmSize" : {
+            "type": "string",
+            "defaultValue": "Standard_A4"
+        },
+        "vmCount" : {
+            "type": "int"
+        },        
+        "adminUsername": {
+            "type": "securestring"
+        },
+        "adminPassword": {
+            "type": "securestring",
+            "defaultValue": ""
+        },
+        "location": {
+            "type": "string"
+        },
+        "scriptUri": {
+            "type": "string",
+            "defaultValue": "https://raw.githubusercontent.com/rafaelgodinho/ARMSamples/master/DynamicNumberOfDataDisks"
+        }
+    },
+    "variables": {
+        "storageAccountBasename": "[uniquestring(resourceGroup().id, deployment().name)]",
+        "numberOfDisksPerNode": "[add(variables('numberOfDataDisks'), 1)]",
+        "storageAccountTypeStandard_A4": "Standard_LRS",
+        "storageAccountTypeStandard_A7": "Standard_LRS",
+        "storageAccountTypeStandard_A10": "Standard_LRS",
+        "storageAccountTypeStandard_A11": "Standard_LRS",
+        "storageAccountTypeStandard_D4": "Standard_LRS",
+        "storageAccountTypeStandard_D13": "Standard_LRS",
+        "storageAccountTypeStandard_D14": "Standard_LRS",
+        "storageAccountTypeStandard_D4_v2": "Standard_LRS",
+        "storageAccountTypeStandard_D13_v2": "Standard_LRS",
+        "storageAccountTypeStandard_D14_v2": "Standard_LRS",
+        "storageAccountTypeStandard_DS4": "Premium_LRS",
+        "storageAccountTypeStandard_DS13": "Premium_LRS",
+        "storageAccountTypeStandard_DS14": "Premium_LRS",
+        "storageAccountTypeStandard_G3": "Standard_LRS",
+        "storageAccountTypeStandard_G4": "Standard_LRS",
+        "storageAccountTypeStandard_G5": "Standard_LRS",
+        "storageAccountTypeStandard_GS3": "Premium_LRS",
+        "storageAccountTypeStandard_GS4": "Premium_LRS",
+        "storageAccountTypeStandard_GS5": "Premium_LRS",
+        "storageAccountType" : "[variables(concat('storageAccountType', parameters('vmSize')))]",
+        "maxDisksStandard_LRS": 40,
+        "maxDisksPremium_LRS": 35,
+        "maxDisksPerStorageAccount": "[variables(concat('maxDisks', variables('storageAccountType')))]",
+        "numberOfNodesPerStorageAccount": "[div(variables('maxDisksPerStorageAccount'), variables('numberOfDisksPerNode'))]",
+        "numberOfNodes" : "[parameters('nodeCount')]",
+        "module" : "[mod(variables('numberOfNodes'), variables('numberOfNodesPerStorageAccount'))]",
+        "moduleReplacing9" : "[replace(string(variables('module')), '9', '1')]",
+        "moduleReplacing8" : "[replace(string(variables('moduleReplacing9')), '8', '1')]",
+        "moduleReplacing7" : "[replace(string(variables('moduleReplacing8')), '7', '1')]",
+        "moduleReplacing6" : "[replace(string(variables('moduleReplacing7')), '6', '1')]",
+        "moduleReplacing5" : "[replace(string(variables('moduleReplacing6')), '5', '1')]",
+        "moduleReplacing4" : "[replace(string(variables('moduleReplacing5')), '4', '1')]",
+        "moduleReplacing3" : "[replace(string(variables('moduleReplacing4')), '3', '1')]",                
+        "moduleReplacing2" : "[replace(string(variables('moduleReplacing3')), '2', '1')]",
+        "numberOfStorageAccounts" : "[add(div(variables('numberOfNodes'), variables('numberOfNodesPerStorageAccount')), int(variables('moduleReplacing2')))]"
+    },
+    "resources": [
+      {
+        "name": "[concat(parameters('vmBasename'), 'network')]",
+        "type": "Microsoft.Resources/deployments",
+        "apiVersion": "2015-01-01",
+        "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+            "uri": "[concat(variables('scriptUri'), '/network.json')]",
+            "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+            "vmBasename": {
+              "value": "[parameters('vmBasename')]"
+            },
+            "vmCount": {
+              "value": "[variables('vmCount')]"
+            },
+            "location": {
+              "value": "[parameters('location')]"
+            }
+          }
+        }
+      },
+      {
+        "name": "[concat(parameters('vmBasename'), 'storage')]",
+        "type": "Microsoft.Resources/deployments",
+        "apiVersion": "2015-01-01",
+        "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+            "uri": "[concat(variables('scriptUri'), '/storage.json')]",
+            "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+            "storageAccountBasename": {
+              "value": "[variables('storageAccountBasename')]"
+            },
+            "numberOfStorageAccounts": {
+              "value": "[variables('numberOfStorageAccounts')]"
+            },
+            "storageAccountType": {
+              "value": "[variables('storageAccountType')]"
+            },            
+            "location": {
+              "value": "[parameters('location')]"
+            }
+          }
+        }
+      },
+      {
+        "name": "[concat(parameters('vmBasename'), 'storage', copyIndex())]",
+        "type": "Microsoft.Resources/deployments",
+        "apiVersion": "2015-01-01",
+        "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+            "uri": "[concat(variables('scriptUri'), '/vm.json')]",
+            "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+            "vmSize" : {
+                "value": "string"
+            },
+            "vmName": {
+                "value": "[concat(parameters('vmBasename'), copyIndex())]"
+            },
+            "adminUsername": {
+                "value": "[parameters('adminUsername')]"
+            },
+            "adminPassword": {
+                "value": "[parameters('adminPassword')]"
+            },
+            "storageAccountName": {
+                "value": "[concat(variables('storageAccountBasename'), div(copyIndex(), variables('numberOfNodesPerStorageAccount')))]"
+            },
+            "location": {
+                "value": "[parameters('location')]"
+            }        
+          },
+          "copy": {
+              "name": "vmLoop",
+              "count": "[parameters('vmCount')]"
+          }          
+        }
+      }      
+    ],
+    "outputs" : {}
+}

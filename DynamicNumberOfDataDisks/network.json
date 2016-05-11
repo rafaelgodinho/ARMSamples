@@ -1,0 +1,110 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json# ",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmBasename": {
+            "type": "string"
+        },
+        "vmCount": {
+            "type": "int"
+        },
+        "location": {
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[concat(parameters('vmBasename'), '-pip', copyIndex())]",
+      "location": "[parameters('location')]",
+      "properties": {
+          "publicIPAllocationMethod": "Dynamic"
+      },
+      "copy": {
+          "name": "publicIPLoop",
+          "count": "[parameters('vmCount')]"
+      }      
+    },
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[concat(parameters('vmBasename'), '-vnet')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "10.0.0.0/16"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "Subnet-1",
+            "properties" : {
+                "addressPrefix": "10.0.0.0/24"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[concat(parameters('vmBasename'), '-nsg')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "ssh_rule",
+            "properties": {
+                "description": "Allow SSH",
+                "protocol": "Tcp",
+                "sourcePortRange": "*",
+                "destinationPortRange": "22",
+                "sourceAddressPrefix": "Internet",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 100,
+                "direction": "Inbound"
+            }
+          }
+        ]
+      }
+    },    
+    {
+        "apiVersion": "2015-06-15",
+        "type": "Microsoft.Network/networkInterfaces",
+        "name": "[concat(parameters('vmName'), '-nic')]",
+        "location": "[parameters('location')]",
+        "dependsOn": [
+            "[concat('Microsoft.Network/virtualNetworks/', parameters('vmBasename'), '-vnet')]",
+            "[concat('Microsoft.Network/networkSecurityGroups/', parameters('vBasename'), '-nsg')]",
+            "[concat('Microsoft.Network/publicIPAddresses/', parameters('vmBasename'), '-pip', copyIndex())]"
+        ],
+        "properties": {
+            "networkSecurityGroup": {  
+                "id": "[concat(resourceId('Microsoft.Network/networkSecurityGroups', concat(parameters('vmBasename'), '-nsg')))]"
+            },            
+            "ipConfigurations": [
+            {
+                "name": "ipconfig1",
+                "properties": {
+                    "privateIPAllocationMethod": "Dynamic",
+                    "subnet": {
+                        "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', concat(parameters('vmBasename'), '-vnet')), '/subnets/Subnet-1')]"
+                    },
+                    "publicIPAddress": {
+                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('vmBasename'), '-pip', copyIndex()))]"
+                    }                    
+                }
+            }
+          ]
+        },
+        "copy": {
+            "name": "nicLoop",
+            "count": "[parameters('vmCount')]"
+        }         
+    }
+    ]
+}
