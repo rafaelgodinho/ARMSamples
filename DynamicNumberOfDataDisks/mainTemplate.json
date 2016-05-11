@@ -148,6 +148,9 @@
             "storageAccountName": {
                 "value": "[concat(variables('storageAccountBasename'), div(copyIndex(), variables('numberOfNodesPerStorageAccount')))]"
             },
+            "numberOfDataDisks":{
+                "value": "[parameters('numberOfDataDisks')]"
+            },
             "location": {
                 "value": "[parameters('location')]"
             }        
