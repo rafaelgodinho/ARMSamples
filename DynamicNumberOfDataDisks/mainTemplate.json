@@ -32,7 +32,7 @@
     },
     "variables": {
         "storageAccountBasename": "[uniquestring(resourceGroup().id, deployment().name)]",
-        "numberOfDisksPerNode": "[add(variables('numberOfDataDisks'), 1)]",
+        "numberOfDisksPerNode": "[add(parameters('numberOfDataDisks'), 1)]",
         "storageAccountTypeStandard_A4": "Standard_LRS",
         "storageAccountTypeStandard_A7": "Standard_LRS",
         "storageAccountTypeStandard_A10": "Standard_LRS",
