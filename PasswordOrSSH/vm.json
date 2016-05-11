@@ -30,10 +30,6 @@
         },
         "location": {
             "type": "string"
-        },
-        "scriptUri": {
-            "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/rafaelgodinho/ARMSamples/master/PasswordOrSSH"
         }
     },
     "variables": {
@@ -41,7 +37,28 @@
         "imageOffer" : "UbuntuServer",
         "imageSKU" : "15.10",
         "imageVersion": "latest",
-        "storageAccountName": "[uniquestring(resourceGroup().id, deployment().name)]"
+        "storageAccountName": "[uniquestring(resourceGroup().id, deployment().name)]",
+        "password_osProfile": {
+          "computername": "[parameters('vmName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "sshPublicKey_osProfile": {
+          "computername": "[parameters('vmName')]",
+            "adminUsername": "[parameters('adminUsername')]",
+            "linuxConfiguration": {
+                "disablePasswordAuthentication": "true",
+                "ssh": {
+                    "publicKeys": [
+                        {
+                        "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+                        "keyData": "[parameters('sshKey')]"
+                        }
+                    ]
+                }
+            }
+        },
+        "osProfile": "[variables(concat(parameters('authenticationType'), '_osProfile'))]"
     },
     "resources": [
 {
@@ -138,48 +155,19 @@
         }
     },
     {
-        "name": "[concat('osProfile-', parameters('vmName'))]",
-        "type": "Microsoft.Resources/deployments",
-        "apiVersion": "2015-01-01",
-        "properties": {
-            "mode": "Incremental",
-            "templateLink": {
-                "uri": "[concat(parameters('scriptUri'), '/osProfile.json')]",
-                "contentVersion": "1.0.0.0"
-            },
-            "parameters": {
-                "vmName" : {
-                    "value": "[parameters('vmName')]"
-                },
-                "adminUsername" : {
-                    "value": "[parameters('adminUserName')]"
-                },
-                "adminPassword" : {
-                    "value": "[parameters('adminPassword')]"
-                },
-                "sshKey" : {
-                    "value": "[parameters('sshKey')]"
-                },
-                "authenticationType" : {
-                    "value": "[parameters('authenticationType')]"
-                }                                
-            }
-        }
-    },    
-    {
         "apiVersion": "2015-06-15",
         "type": "Microsoft.Compute/virtualMachines",
         "name": "[parameters('vmName')]",
         "location": "[parameters('location')]",
         "dependsOn": [
-            "[concat('Microsoft.Resources/deployments/osProfile-', parameters('vmName'))]",
+            "[concat('Microsoft.Network/networkInterfaces/', parameters('vmName'), '-nic')]",
             "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
         ],                
         "properties": {
             "hardwareProfile": {
                 "vmSize": "[parameters('vmSize')]"
             },
-            "osProfile": "[reference(concat('Microsoft.Resources/deployments/osProfile-', parameters('vmName')), '2015-01-01').outputs.osProfile.value]",
+            "osProfile": "[variables('osProfile')]",
             "storageProfile": {
                 "imageReference": {
                     "publisher": "[variables('imagePublisher')]",

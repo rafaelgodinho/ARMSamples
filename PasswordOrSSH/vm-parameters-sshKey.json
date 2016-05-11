@@ -19,8 +19,5 @@
     },
     "authenticationType": {
         "value": "sshPublicKey"
-    },
-    "scriptUri": {
-        "value": "https://raw.githubusercontent.com/rafaelgodinho/ARMSamples/master/PasswordOrSSH"
     }
 }
