@@ -80,7 +80,7 @@
         "dependsOn": [
             "[concat('Microsoft.Network/virtualNetworks/', parameters('vmBasename'), '-vnet')]",
             "[concat('Microsoft.Network/networkSecurityGroups/', parameters('vmBasename'), '-nsg')]",
-            "[concat('Microsoft.Network/publicIPAddresses/', parameters('vmBasename'), '-pip', copyIndex())]"
+            "[concat('Microsoft.Network/publicIPAddresses/', parameters('vmBasename'), copyIndex(), '-pip')]"
         ],
         "properties": {
             "networkSecurityGroup": {  
