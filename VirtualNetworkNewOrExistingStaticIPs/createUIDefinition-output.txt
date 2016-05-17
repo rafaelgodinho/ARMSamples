@@ -1,0 +1,59 @@
+*** New
+
+{
+  "location": {
+    "value": "westus"
+  },
+  "vnetNewOrExisting": {
+    "value": "new"
+  },
+  "vnetAddressPrefix": {
+    "value": "10.5.0.0/16"
+  },
+  "vnetName": {
+    "value": "vnet01"
+  },
+  "vnetRGName": {
+    "value": "rgtest"
+  }  
+  "vnetSubnetName": {
+    "value": "subnet-1"
+  },
+  "vnetRGName": {
+    "value": "test"
+  },
+  "vnetSubnetPrefix": {
+    "value": "10.5.0.0/24"
+  },
+  "vnetStartAddress": {
+    "value": "10.5.0.4"
+  }
+}
+
+*** Existing
+{
+  "location": {
+    "value": "westus"
+  },
+  "vnetNewOrExisting": {
+    "value": "existing"
+  },
+  "vnetName": {
+    "value": "rgubuntu"
+  },
+  "vnetRGName": {
+    "value": "rgubuntu"
+  }  
+  "vnetSubnetName": {
+    "value": "default"
+  },
+  "vnetRGName": {
+    "value": "rgubuntu"
+  },
+  "vnetSubnetPrefix": {
+    "value": "10.1.0.0/24"
+  },
+  "vnetStartAddress": {
+    "value": "10.1.0.6"
+  }
+}

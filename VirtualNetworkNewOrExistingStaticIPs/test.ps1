@@ -20,10 +20,7 @@ Set-AzureStorageBlobContent -File "createUiDefinition.json" -Container $storageC
 #https://portal.azure.com/#blade/Microsoft_Azure_Compute/CreateMultiVmWizardBlade/internal_bladeCallId/anything/internal_bladeCallerParams/{"initialData":{},"providerConfig":{"createUiDefinition":"https%3A%2F%2Frgarmsamples.blob.core.windows.net%2Fuideploy%2FcreateUiDefinition.json"}} 
 
 
-$testResourceGroupName = "rgvnettest1" #new vnet
-#$testResourceGroupName = "rgvnettest2" #existing vnet
+$testResourceGroupName = "rgvnettest1"
 New-AzureRmResourceGroup -Name $testResourceGroupName -Location "West US" -Force
 New-AzureRmResourceGroupDeployment -ResourceGroupName $testResourceGroupName -TemplateFile "network.json" -TemplateParameterFile "network-new-parameters.json"
 #New-AzureRmResourceGroupDeployment -ResourceGroupName $testResourceGroupName -TemplateFile "network.json" -TemplateParameterFile "network-existing-parameters.json"
-
-#Remove-AzureRmResourceGroup -Name $testResourceGroupName -Force

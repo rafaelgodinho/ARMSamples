@@ -1,0 +1,72 @@
+{
+  "handler": "Microsoft.Compute.MultiVm",
+  "version": "0.0.1-preview",
+  "parameters": {
+    "basics": [
+    { 
+      "name": "Basics", 
+      "type": "Microsoft.Common.Section", 
+      "label": "Environment configuration", 
+      "elements": [
+        {
+          "name": "vnetSelector",
+          "type": "Microsoft.Network.VirtualNetworkCombo",
+          "label": {
+            "virtualNetwork": "Virtual network",
+            "subnets": "Subnets"
+          },
+          "toolTip": {
+            "virtualNetwork": "",
+            "subnets": ""
+          },
+          "defaultValue": {
+            "name": "vnet01",
+            "addressPrefixSize": "/16"
+          },
+          "constraints": {
+            "minAddressPrefixSize": "/16"
+          },
+          "options": {
+            "hideExisting": false
+          },
+          "subnets": {
+            "subnet1": {
+              "label": "First subnet",
+              "defaultValue": {
+                "name": "subnet-1",
+                "addressPrefixSize": "/24"
+              },
+              "constraints": {
+                "minAddressPrefixSize": "/24",
+                "minAddressCount": 12,
+                "requireContiguousAddresses": true
+              }
+            },
+            "subnet2": {
+              "label": "Second subnet",
+              "defaultValue": {
+                "name": "subnet-2",
+                "addressPrefixSize": "/26"
+              },
+              "constraints": {
+                "minAddressPrefixSize": "/26",
+                "minAddressCount": 8,
+                "requireContiguousAddresses": true
+              }
+            }
+          },
+          "visible": true
+        }
+      ]
+    }       
+    ],
+    "steps": [
+    ],
+    "outputs": {
+      "location" : "[location()]",
+      "vnetNewOrExisting" : "[basics('Basics').vnetSelector.newOrExisting]",
+      "vnetAddressPrefix" : "[basics('Basics').vnetSelector.addressPrefix]",
+      "vnetSubnets" : "[basics('Basics').vnetSelector.subnets]"      
+    }
+  }
+}

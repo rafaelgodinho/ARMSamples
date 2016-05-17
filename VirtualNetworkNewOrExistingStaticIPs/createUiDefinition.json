@@ -1,0 +1,66 @@
+{
+  "handler": "Microsoft.Compute.MultiVm",
+  "version": "0.0.1-preview",
+  "parameters": {
+    "basics": [],
+    "steps": [
+      { 
+        "name": "networkInfo",
+        "label": "Network information",
+        "subLabel": {
+          "preValidation": "Provide network information",
+          "postValidation": "Done"
+        },
+        "bladeTitle": "Network information",
+        "elements": [
+          {          "name": "vnetSelector",
+          "type": "Microsoft.Network.VirtualNetworkCombo",
+          "label": {
+            "virtualNetwork": "Virtual network",
+            "subnets": "Subnets"
+          },
+          "toolTip": {
+            "virtualNetwork": "",
+            "subnets": ""
+          },
+          "defaultValue": {
+            "name": "vnet01",
+            "addressPrefixSize": "/16"
+          },
+          "constraints": {
+            "minAddressPrefixSize": "/16"
+          },
+          "options": {
+            "hideExisting": false
+          },
+          "subnets": {
+            "subnet1": {
+              "label": "Subnet",
+              "defaultValue": {
+                "name": "subnet-1",
+                "addressPrefixSize": "/24"
+              },
+              "constraints": {
+                "minAddressPrefixSize": "/24",
+                "minAddressCount": 12,
+                "requireContiguousAddresses": true
+              }
+            }
+          },
+          "visible": true
+        }
+      ]
+      }       
+    ],
+    "outputs": {
+      "location" : "[location()]",
+      "vnetNewOrExisting" : "[steps('networkInfo').vnetSelector.newOrExisting]",
+      "vnetAddressPrefix" : "[steps('networkInfo').vnetSelector.addressPrefix]",
+      "vnetName": "[steps('networkInfo').vnetSelector.name]",
+      "vnetRGName": "[steps('networkInfo').vnetSelector.resourceGroup]",      
+      "vnetSubnetName": "[steps('networkInfo').vnetSelector.subnets.subnet1.name]",
+      "vnetSubnetPrefix": "[steps('networkInfo').vnetSelector.subnets.subnet1.addressPrefix]",
+      "vnetStartAddress": "[steps('networkInfo').vnetSelector.subnets.subnet1.startAddress]"
+    }
+  }
+}
