@@ -20,7 +20,7 @@
         "vnetAddressPrefix": {
             "type": "string"
         },
-        "vnetSubnetPrefix": {
+        "vnetSubnetAddressPrefix": {
             "type": "string"
         },
         "vnetStartAddress": {
