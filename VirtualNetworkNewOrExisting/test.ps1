@@ -21,6 +21,6 @@ Set-AzureStorageBlobContent -File "createUiDefinition.json" -Container $storageC
 
 
 $testResourceGroupName = "rgvnettest1"
-New-AzureRmResourceGroup -Name $testResourceGroupName -Location "West US"
+New-AzureRmResourceGroup -Name $testResourceGroupName -Location "West US" -Force
 New-AzureRmResourceGroupDeployment -ResourceGroupName $testResourceGroupName -TemplateFile "network.json" -TemplateParameterFile "network-new-parameters.json"
 #New-AzureRmResourceGroupDeployment -ResourceGroupName $testResourceGroupName -TemplateFile "network.json" -TemplateParameterFile "network-existing-parameters.json"

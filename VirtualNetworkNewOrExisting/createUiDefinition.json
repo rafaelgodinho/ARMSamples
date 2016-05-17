@@ -57,6 +57,7 @@
       "vnetNewOrExisting" : "[steps('networkInfo').vnetSelector.newOrExisting]",
       "vnetAddressPrefix" : "[steps('networkInfo').vnetSelector.addressPrefix]",
       "vnetName": "[steps('networkInfo').vnetSelector.name]",
+      "vnetRGName": "[steps('networkInfo').vnetSelector.resourceGroup]",      
       "vnetSubnetName": "[steps('networkInfo').vnetSelector.subnets.subnet1.name]",
       "vnetSubnetPrefix": "[steps('networkInfo').vnetSelector.subnets.subnet1.addressPrefix]",
       "vnetStartAddress": "[steps('networkInfo').vnetSelector.subnets.subnet1.startAddress]"

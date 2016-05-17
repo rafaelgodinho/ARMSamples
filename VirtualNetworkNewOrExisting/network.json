@@ -25,7 +25,10 @@
         },
         "vnetStartAddress": {
             "type": "string"
-        },                
+        },
+        "vnetRGName": {
+            "type": "string"
+        },                        
         "location": {
             "type": "string"
         },
@@ -122,7 +125,7 @@
                 "properties": {
                     "privateIPAllocationMethod": "Dynamic",
                     "subnet": {
-                        "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName')), '/subnets/', parameters('vnetSubnetName'))]"
+                        "id": "[concat(resourceId(parameters('vnetRGName'), 'Microsoft.Network/virtualNetworks', parameters('vnetName')), '/subnets/', parameters('vnetSubnetName'))]"
                     },
                     "publicIPAddress": {
                         "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('vmBasename'), copyIndex(), '-pip'))]"

@@ -17,10 +17,13 @@
     "vnetSubnetName": {
         "value": "mysubnet"
     },
+    "vnetRGName": {
+        "value": "rgvnettest1"
+    },
     "vnetAddressPrefix": {
         "value": "10.5.0.0/16"
     },
-    "vnetSubnetPrefix": {
+    "vnetSubnetAddressPrefix": {
         "value": "10.5.0.0/24"
     },
     "vnetStartAddress": {
