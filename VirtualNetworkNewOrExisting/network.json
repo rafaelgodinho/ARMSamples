@@ -17,9 +17,6 @@
         "vnetSubnetName": {
             "type": "string"
         },
-        "vnetRGName": {
-            "type": "string"
-        },
         "vnetAddressPrefix": {
             "type": "string"
         },
