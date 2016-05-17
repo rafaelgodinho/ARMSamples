@@ -1,0 +1,32 @@
+{
+    "location":{
+        "value": "West US"
+    },
+    "vmBasename" : {
+        "value": "myvm"
+    },    
+    "vmCount": {
+        "value": 5
+    },
+    "vnetNewOrExisting": {
+        "value": "new"
+    },
+    "vnetName": {
+        "value": "myvnet"
+    },
+    "vnetSubnetName": {
+        "value": "mysubnet"
+    },
+    "vnetAddressPrefix": {
+        "value": "10.5.0.0/16"
+    },
+    "vnetSubnetPrefix": {
+        "value": "10.5.0.0/24"
+    },
+    "vnetStartAddress": {
+        "value": "10.5.0.4"
+    },
+    "scriptUri": {
+        "value": "https://raw.githubusercontent.com/rafaelgodinho/ARMSamples/master/VirtualNetworkNewOrExisting"
+    }
+}
