@@ -630,7 +630,7 @@
               "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
               "lun": 29,
               "vhd": {
-                "Uri": "[variables('dd29')]"
+                "Uri": "[variables('dd30')]"
               },
               "createOption": "Empty"
             },
@@ -920,7 +920,7 @@
               "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
               "lun": 29,
               "vhd": {
-                "Uri": "[variables('dd29')]"
+                "Uri": "[variables('dd30')]"
               },
               "createOption": "Empty"
             },
@@ -1228,7 +1228,7 @@
               "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
               "lun": 29,
               "vhd": {
-                "Uri": "[variables('dd29')]"
+                "Uri": "[variables('dd30')]"
               },
               "createOption": "Empty"
             },
