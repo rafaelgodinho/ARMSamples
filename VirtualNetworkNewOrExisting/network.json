@@ -18,7 +18,8 @@
             "type": "string"
         },
         "vnetAddressPrefix": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": ""
         },
         "vnetSubnetAddressPrefix": {
             "type": "string"
