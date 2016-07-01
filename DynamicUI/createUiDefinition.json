@@ -90,7 +90,7 @@
               ]
             },
             "osPlatform": "Linux",
-            "count": "[steps('nodeConfig').dataNodeCount]"
+            "count": "[steps('nodeConfig').masterNodeCount]"
           }        
         ]
       }
