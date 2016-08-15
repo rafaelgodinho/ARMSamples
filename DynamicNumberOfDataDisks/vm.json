@@ -1291,7 +1291,7 @@
               "diskSizeGB": "[variables('sizeOfEachDataDiskInGB')]",
               "lun": 36,
               "vhd": {
-                "Uri": "[variables('dd36')]"
+                "Uri": "[variables('dd37')]"
               },
               "createOption": "Empty"
             },
