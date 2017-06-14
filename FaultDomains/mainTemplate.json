@@ -1,0 +1,50 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": "West US"
+        }
+    },
+    "variables": {
+        "location3FaultDomainArray": [
+            "eastus",
+            "east us",
+            "eastus2",
+            "east us 2",
+            "westus",
+            "west us",
+            "centralus",
+            "central us",
+            "northcentralus",
+            "north central us",
+            "southcentralus",
+            "south central us",
+            "northeurope",
+            "north europe",
+            "westeurope",
+            "west europe"
+        ],
+        "locationInArray": "[contains(variables('location3FaultDomainArray'), toLower(parameters('location')))]",
+        "faultDomainCount_true": 3,
+        "faultDomainCount_false": 2,
+        "faultDomainCount": "[variables(concat('faultDomainCount_', toLower(string(variables('locationInArray')))))]"
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-03-30",
+            "name": "myAS",
+            "type": "Microsoft.Compute/availabilitySets",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "Aligned"
+            },
+            "properties": {
+                "platformUpdateDomainCount": 5,
+                "platformFaultDomainCount": "[variables('faultDomainCount')]"
+            }
+        }
+    ],
+    "outputs": {}
+}
