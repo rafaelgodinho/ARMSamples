@@ -28,10 +28,12 @@
             "type": "string"
         },
         "vnetRGName": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "[resourceGroup().name]"
         },                        
         "location": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]"
         },
         "scriptUri": {
             "type": "string",
