@@ -1,0 +1,32 @@
+{
+    "vmBasename" : {
+        "value": "myvm"
+    },    
+    "vmCount": {
+        "value": 5
+    },
+    "vnetNewOrExisting": {
+        "value": "existing"
+    },
+    "vnetName": {
+        "value": "rgubuntu"
+    },
+    "vnetSubnetName": {
+        "value": "default"
+    },
+    "vnetRGName": {
+        "value": "rgubuntu"
+    },    
+    "vnetAddressPrefix": {
+        "value": ""
+    },
+    "vnetSubnetAddressPrefix": {
+        "value": "10.1.0.0/24"
+    },
+    "vnetStartAddress": {
+        "value": "10.1.0.6"
+    },
+    "scriptUri": {
+        "value": "https://raw.githubusercontent.com/rafaelgodinho/ARMSamples/master/VirtualNetworkNewOrExisting"
+    }
+}
